@@ -5,7 +5,7 @@ This example project parses a CSV file using
 
 ## Build
 
-Build this project using [Cabal](#cabal):
+Build this project using [Cabal](#cabal).
 
 ```bash
 cabal new-configure

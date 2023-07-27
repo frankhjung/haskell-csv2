@@ -1,35 +1,33 @@
-.PHONY: check tags style lint build test exec clean cleanall
+.PHONY: all check default tags style lint build test exec clean cleanall
 
-SHELL	= /bin/sh
-SUBS	:= $(wildcard */)
-SRCS	:= $(wildcard $(addsuffix *.hs, $(SUBS)))
+SRC	:= $(shell git ls-files | grep --perl \.hs)
 
-default: check build test
+default: all
 
-all:	check build test exec
+all:	check build exec
 
 check:	tags style lint
 
 tags:
-	@hasktags --ctags --extendedctag $(SRCS)
+	@hasktags --ctags --extendedctag $(SRC)
 
 style:
-	@stylish-haskell --config=.stylish-haskell.yaml --inplace $(SRCS)
+	@stylish-haskell --config=.stylish-haskell.yaml --inplace $(SRC)
 
 lint:
-	@hlint $(SRCS)
+	@hlint $(SRC)
 
 build:
-	@cabal new-build
+	@cabal build
 
 test:
-	@cabal new-test
+	@cabal test
 
 exec:
-	@cabal new-run example
+	@cabal run example
 
 clean:
-	@cabal new-clean
+	@cabal clean
 
 cleanall: clean
 	@$(RM) -rf *.tix
