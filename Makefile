@@ -1,33 +1,60 @@
-.PHONY: all check default tags style lint build test exec clean cleanall
+#!/usr/bin/env make
 
 SRC	:= $(shell git ls-files | grep --perl \.hs)
+YAML	:= $(shell git ls-files | grep --perl \.y?ml)
 
-default: all
+.PHONY: default
+default: check build exec
 
-all:	check build exec
+.PHONY: all
+all:	check build doc exec
 
+.PHONY: check
 check:	tags style lint
 
-tags:
+.PHONY: tags
+tags: $(SRC)
+	@echo tags ...
 	@hasktags --ctags --extendedctag $(SRC)
 
+.PHONY: style
 style:
+	@echo style ...
 	@stylish-haskell --config=.stylish-haskell.yaml --inplace $(SRC)
 
+.PHONY: lint
 lint:
-	@hlint $(SRC)
+	@echo lint ...
+	@cabal check
+	@hlint --cross --color --show $(SRC)
+	@yamllint --strict $(YAML)
 
+.PHONY: build
 build:
-	@cabal build
+	@echo build ...
+	@stack build --pedantic --fast
 
-test:
-	@cabal test
 
+.PHONY: doc
+doc:
+	@echo doc ...
+	@stack haddock
+
+.PHONY: exec
 exec:
-	@cabal run example
+	@stack exec -- main
 
+.PHONY: setup
+setup:
+	stack path
+	stack query
+	stack ls dependencies
+
+.PHONY: clean
 clean:
-	@cabal clean
+	@stack clean
 
+.PHONY: cleanall
 cleanall: clean
-	@$(RM) -rf *.tix
+	@stack purge
+	@rm -f stack.yaml.lock

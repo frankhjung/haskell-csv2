@@ -1,0 +1,51 @@
+cabal-version:      3.0
+
+name:               csv2
+version:            0.3.0
+description:        See README at <https://github.com/frankhjung/haskell-csv2#readme>
+synopsis:           example to read from csv file
+homepage:           https://github.com/frankhjung/haskell-csv2#readme
+bug-reports:        https://github.com/frankhjung/haskell-csv2/issues
+license:            GPL-3.0-only
+license-file:       LICENSE
+author:             Frank H Jung
+maintainer:         frankhjung@linux.com
+copyright:          Copyright © 2021-2023 Frank H Jung
+category:           education
+build-type:         Simple
+extra-source-files: README.md
+
+source-repository   head
+  type:             git
+  location:         git@github.com:frankhjung/haskell-csv2.git
+
+library
+  exposed-modules:  Lib
+  hs-source-dirs:   src
+  ghc-options:      -Wall -Wcompat -Widentities -Wincomplete-record-updates
+                    -Wincomplete-uni-patterns -Wmissing-export-lists
+                    -Wmissing-home-modules -Wpartial-fields
+                    -Wredundant-constraints
+  default-language: Haskell2010
+  build-depends:    base >=4.7 && <5
+                  , bytestring
+                  , cassava
+                  , vector
+
+executable          main
+  main-is:          Main.hs
+  other-modules:    Lib
+  hs-source-dirs:   app
+                  , src
+  ghc-options:      -Wall -Wcompat -Widentities -Wincomplete-record-updates
+                    -Wincomplete-uni-patterns -Wmissing-export-lists
+                    -Wmissing-home-modules -Wpartial-fields
+                    -Wredundant-constraints -threaded -rtsopts
+                    -with-rtsopts=-N
+  default-language: Haskell2010
+  build-depends:    base
+                  , bytestring
+                  , cassava
+                  , vector
+                  , csv2
+

@@ -1,0 +1,6 @@
+---
+resolver: lts-20.26
+arch: x86_64
+flags: {}
+packages: ["."]
+allow-newer: true
