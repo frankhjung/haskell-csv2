@@ -9,7 +9,7 @@ A program to read a CSV. This example came from
 import           Data.Vector as V (Vector, mapM_)
 
 -- | Print the earnings read from the CSV file.
--- The format of the CSV is known, so we can use a tuple to represent the data.
+-- The format of the CSV is known as a String and Int tuple.
 showEarning :: Vector (String, Int) -> IO ()
 showEarning = V.mapM_ (putStrLn . fmtEarnings)
   where
