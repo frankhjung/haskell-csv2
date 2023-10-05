@@ -1,8 +1,9 @@
 cabal-version:      3.0
-
 name:               csv2
-version:            0.3.0
-description:        See README at <https://github.com/frankhjung/haskell-csv2#readme>
+version:            0.4.0
+description:
+  See README at <https://github.com/frankhjung/haskell-csv2#readme>
+
 synopsis:           example to read from csv file
 homepage:           https://github.com/frankhjung/haskell-csv2#readme
 bug-reports:        https://github.com/frankhjung/haskell-csv2/issues
@@ -15,37 +16,39 @@ category:           education
 build-type:         Simple
 extra-source-files: README.md
 
-source-repository   head
-  type:             git
-  location:         git@github.com:frankhjung/haskell-csv2.git
+source-repository head
+  type:     git
+  location: git@github.com:frankhjung/haskell-csv2.git
 
 library
   exposed-modules:  Lib
   hs-source-dirs:   src
-  ghc-options:      -Wall -Wcompat -Widentities -Wincomplete-record-updates
-                    -Wincomplete-uni-patterns -Wmissing-export-lists
-                    -Wmissing-home-modules -Wpartial-fields
-                    -Wredundant-constraints
-  default-language: Haskell2010
-  build-depends:    base >=4.7 && <5
-                  , bytestring
-                  , cassava
-                  , vector
+  ghc-options:
+    -Wall -Wcompat -Widentities -Wincomplete-record-updates
+    -Wincomplete-uni-patterns -Wmissing-export-lists
+    -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
 
-executable          main
+  default-language: Haskell2010
+  build-depends:
+    , base        >=4.7 && <5
+    , bytestring
+    , cassava
+    , vector
+
+executable main
   main-is:          Main.hs
   other-modules:    Lib
-  hs-source-dirs:   app
-                  , src
-  ghc-options:      -Wall -Wcompat -Widentities -Wincomplete-record-updates
-                    -Wincomplete-uni-patterns -Wmissing-export-lists
-                    -Wmissing-home-modules -Wpartial-fields
-                    -Wredundant-constraints -threaded -rtsopts
-                    -with-rtsopts=-N
-  default-language: Haskell2010
-  build-depends:    base
-                  , bytestring
-                  , cassava
-                  , vector
-                  , csv2
+  hs-source-dirs:   app src
+  ghc-options:
+    -Wall -Wcompat -Widentities -Wincomplete-record-updates
+    -Wincomplete-uni-patterns -Wmissing-export-lists
+    -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+    -threaded -rtsopts -with-rtsopts=-N
 
+  default-language: Haskell2010
+  build-depends:
+    , base
+    , bytestring
+    , cassava
+    , csv2
+    , vector
